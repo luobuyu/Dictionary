@@ -40,6 +40,8 @@ public class Datebase {
 
     public Word searchWord(String word) {
         Word result = new Word();
+        result.setWord(word);
+        word = word.replace("'", "\\'");
         if(con == null) {
             creatConnection();
         }
@@ -49,10 +51,14 @@ public class Datebase {
         try {
             statement = con.prepareStatement("select * from word where word = " + "'" + word + "'");
             rs = statement.executeQuery();
+            boolean flag = true;
             while(rs.next()) {
+                flag = false;
                 result.setWordID(rs.getInt("word_id"));
-                result.setWord(word);
                 result.setStars(rs.getString("stars"));
+            }
+            if(flag) {  // 没有进入while，说明没有找到
+                return null;
             }
 
             // 找到 see_also

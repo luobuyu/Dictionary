@@ -18,20 +18,28 @@ public class Dictionary {
     }
 
     public boolean check(String word) {
+        String right = "abcdefghijklmnopqrstuvwxyz'- ";
         word = word.toLowerCase();
         for(int i = 0; i < word.length(); i++) {
-            if(word.charAt(i) < 'a' || word.charAt(i) > 'z') return false;
+            if(right.indexOf(word.charAt(i)) == -1) return false;
         }
         return true;
     }
 
     public void searchWord(String word) {
         Word result = datebase.searchWord(word);
-        System.out.println("查询结果为：" + result.getWord());
+
+        if(result == null) {
+            System.out.println("查询失败，找不到该单词！");
+            return;
+        } else {
+            System.out.println("查询结果为：" + result.getWord());
+
+        }
         if(result.getStars().equals("")) {
             result.setStars("☆☆☆☆☆");
         }
-        System.out.println(result.getWord() + " * " + result.getStars());
+        System.out.println(result.getWord() + "，重要程度：" + result.getStars());
         System.out.println("---------------词意--------------");
         for(int i = 0; i < result.getItems().size(); i++) {
             Item item = result.getItems().get(i);
@@ -87,7 +95,7 @@ public class Dictionary {
             else if(!dictionary.check(word)) {
                 System.out.println("输入错误，请重新输入！");
             } else {
-                System.out.println(word);
+                System.out.println("------------------------------------");
                 dictionary.searchWord(word);
             }
         }
