@@ -89,8 +89,8 @@ public class Dictionary {
         Dictionary dictionary = new Dictionary();
         System.out.println("欢迎使用柯林斯词典");
         while (true) {
-            System.out.println("请输入需要查询的单词(输入Q/q退出)：");
-            String word = input.next();
+            System.out.print("请输入需要查询的单词(输入Q/q退出)：");
+            String word = input.nextLine();
             if(word.equals("q") || word.equals("Q")) break;
             else if(!dictionary.check(word)) {
                 System.out.println("输入错误，请重新输入！");
