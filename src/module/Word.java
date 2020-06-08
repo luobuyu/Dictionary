@@ -14,6 +14,14 @@ public class Word {
         see_also = new ArrayList<>();
     }
 
+    public Word(String word, String stars) {
+        this.word = word;
+        this.stars = stars;
+
+        items = new ArrayList<>();
+        see_also = new ArrayList<>();
+    }
+
     public ArrayList<String> getSee_also() {
         return see_also;
     }
@@ -30,11 +38,7 @@ public class Word {
         this.wordID = wordID;
     }
 
-    public Word(String word, String stars) {
-        this.word = word;
-        this.stars = stars;
-        this.items = new ArrayList<>();
-    }
+
 
     public void addItem(Item item) {
         this.items.add(item);
@@ -64,6 +68,23 @@ public class Word {
         this.items = items;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) {
+            return true;
+        } else {
+            if(obj instanceof Word) {
+                boolean flag = true;
+                Word temp = (Word) obj;
+                if(this.getWordID() != temp.getWordID() || !this.getStars().equals(temp.getStars()) || !this.getWord().equals(temp.getWord())){
+                    return false;
+                }
+                if(!this.getItems().equals(temp.getItems()) || !this.getSee_also().equals(temp.getSee_also()) ) return false;
+                return true;
+            }
+            return false;
+        }
+    }
 }
 
 class Item {
@@ -147,6 +168,27 @@ class Item {
     public void setExplanation(String explanation) {
         this.explanation = explanation;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) {
+            return true;
+        } else {
+            if(obj instanceof Item) {
+                Item temp = (Item) obj;
+                if(itemID != temp.getItemID()) return false;
+                if(!label.equals(temp.getLabel()) || !word_ch.equals(temp.getWord_ch()) || !gram.equals(temp.getGram()) || !explanation.equals(temp.getExplanation())) {
+                    return false;
+                }
+
+                if(!sentences.equals(temp.getSentences()) || !tips.equals(temp.getTips())) {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+    }
 }
 
 class Sentence {
@@ -172,5 +214,18 @@ class Sentence {
 
     public void setSentence_ch(String sentence_ch) {
         this.sentence_ch = sentence_ch;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else {
+            if (obj instanceof Sentence) {
+                Sentence temp = (Sentence) obj;
+                return sentence_ch.equals(temp.getSentence_ch()) && sentence_en.equals(temp.getSentence_en());
+            }
+            return false;
+        }
     }
 }

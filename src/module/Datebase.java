@@ -60,7 +60,6 @@ public class Datebase {
             if(flag) {  // 没有进入while，说明没有找到
                 return null;
             }
-
             // 找到 see_also
             statement = con.prepareStatement("select * from see_also where word_id = " + "'" + result.getWordID() + "'");
             rs = statement.executeQuery();
